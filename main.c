@@ -5,25 +5,33 @@
 
 typedef int number;
 
-int charLength(const char *string)
+int stringLength(char *string)
 {
-  int cursor = 0;
-  while (1)
+  // int cursor = 0;
+  // while (1)
+  // {
+  //   if (string[cursor] == 0)
+  //   {
+  //     return cursor;
+  //   }
+  //   else
+  //   {
+  //     cursor++;
+  //   }
+  // }
+
+  char *cursor = string;
+  while (*cursor != '\0')
   {
-    if (string[cursor] == 0)
-    {
-      return cursor;
-    }
-    else
-    {
-      cursor++;
-    }
+    cursor++;
   }
+
+  return cursor - string;
 }
 
-int lengthIncludeNull(const char *string)
+int lengthIncludeNull(char *string)
 {
-  return charLength(string) + 1;
+  return stringLength(string) + 1;
 }
 
 void printHelloWorld()
@@ -93,6 +101,110 @@ void printFormattedFile(FILE *file)
     printf("Weight: %f\n", weight);
     printf("\n");
   }
+}
+
+void reverseString(
+    char *original,
+    char *replacement,
+    size_t buffer_size)
+{
+  const int size = stringLength(original);
+  if (buffer_size > (size + 1))
+  {
+    return;
+  }
+
+  for (int i = 0; i < size; i++)
+  {
+    const int replacementIndex = size - 1 - i;
+    replacement[i] = original[replacementIndex];
+  }
+  replacement[size] = '\0';
+}
+
+void copyString(
+    char *original,
+    char *copy,
+    size_t buffer_size)
+{
+  const int size = stringLength(original) + 1;
+  if (buffer_size > (size + 1))
+  {
+    return;
+  }
+
+  for (int i = 0; i < size; i++)
+  {
+    copy[i] = original[i];
+  }
+}
+
+void *genericCopy(
+    void *destination,
+    const void *source,
+    size_t byte_count)
+{
+
+  const unsigned char *sourcePointer = source;
+  unsigned char *destinationPointer = destination;
+
+  // for (int i = 0; i < byte_count; i++)
+  // {
+  //   *destinationPointer++ = *sourcePointer++;
+
+  //   *destinationPointer = *sourcePointer;
+  //   sourcePointer++;
+  //   destinationPointer++;
+
+  //   destinationPointer[i] = sourcePointer[i];
+  // }
+
+  while (byte_count--)
+  {
+    *destinationPointer++ = *sourcePointer++;
+
+    // *destinationPointer = *sourcePointer;
+    // sourcePointer++;
+    // destinationPointer++;
+  }
+
+  return destination;
+}
+
+bool genericByteEquals (
+  const void *a,
+  size_t a_byte_count, 
+  const void *b,
+  size_t b_byte_count 
+) {
+  if (a_byte_count != b_byte_count) {
+    return false;
+  }
+
+  const unsigned char *ap = a;
+  const unsigned char *bp = b;
+
+  while (a_byte_count--) {
+    if (*ap++ != *bp++) {
+      return false;
+    }
+    // if (*ap++ != *bp++) {
+    //   return false;
+    // }
+  } 
+
+  // for (size_t i = 0; i < a_byte_count; i++) {
+  //   if (ap[i] != bp[i]) {
+  //     return false;
+  //   }    
+  // } 
+
+  return true;
+}
+
+char *toBoolString(int value)
+{
+  return value == 0 ? "false" : "true";
 }
 
 int main(void)
@@ -172,6 +284,44 @@ int main(void)
   // }
 
   // fclose(file);
+
+  /////////// Pointers II: Arithmetic ///////
+
+  // const int intArray[4] = {1, 2, 3, 4};
+  const char helloWorld[] = "Hello world";
+  // const int size = sizeof(charArray) / sizeof(char);
+
+  // // for (int i = 0; i < size; i++) {
+  // //   printf("%c\n",  *(charArray + i));
+  // // }
+
+  // const int charArraySize = sizeof(charArray);
+  // char reversed[size];
+
+  // reverseString(charArray, reversed, sizeof reversed);
+  // printf("%s", reversed);
+
+  // printf("String length : %i", stringLength(charArray));
+
+  // char copiedString[sizeof charArray];
+  // copyString(charArray, copiedString, sizeof charArray);
+
+  // printf("%s", boolString(&charArray == &copiedString));
+
+  // char copy[sizeof helloWorld];
+  // genericCopy(copy, helloWorld, sizeof helloWorld);
+
+  // printf("IsSameMemoryAddress: %s\n", toBoolString(&copy == &helloWorld));
+  // const bool isEqual = genericEquals(helloWorld, sizeof helloWorld, copy, sizeof copy);
+  // printf("IsSameValue: %s\n", toBoolString(isEqual));
+
+  const int intArray[] = {1, 2, 3, 4}; 
+  int copy[sizeof intArray / sizeof(intArray[0])];
+  genericCopy(copy, intArray, sizeof intArray);
+
+  printf("IsSameMemoryAddress: %s\n", toBoolString(&copy[0] == &intArray[0]));
+  const bool isEqual = genericByteEquals(intArray, sizeof intArray, copy, sizeof copy);
+  printf("IsSameValue: %s\n", toBoolString(isEqual));
 
   return EXIT_SUCCESS;
 }
