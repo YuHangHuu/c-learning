@@ -2,9 +2,9 @@
 #ifndef ANIME_H
 #define ANIME_H
 
-typedef struct Anime Anime;
+// typedef struct Anime Anime;
 
-struct Anime
+typedef struct Anime
 {
   const char *name;
   int rating;
@@ -13,7 +13,7 @@ struct Anime
   void (*print)(
       struct Anime *,
       void (*)(void));
-};
+} Anime;
 
 void printAnime(
     struct Anime *anime,

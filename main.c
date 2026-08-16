@@ -3,6 +3,8 @@
 #include <string.h>
 #include "./anime/anime.h"
 
+typedef int number;
+
 int charLength(const char *string)
 {
   int cursor = 0;
@@ -126,7 +128,7 @@ int main(void)
 
   // FILE STUFF
 
-  FILE *file;
+  // FILE *file;
 
   // file = fopen("lorum-ipsum.txt", "w");
 
@@ -141,7 +143,7 @@ int main(void)
 
   // printFormattedFile(file);
 
-  // file = fopen("example-output.text", "w");
+  // file = fopen("example-output.txt", "w");
 
   // const int intVar = 123;
 
