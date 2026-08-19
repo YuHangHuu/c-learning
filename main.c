@@ -171,33 +171,36 @@ void *genericCopy(
   return destination;
 }
 
-bool genericByteEquals (
-  const void *a,
-  size_t a_byte_count, 
-  const void *b,
-  size_t b_byte_count 
-) {
-  if (a_byte_count != b_byte_count) {
+bool genericByteEquals(
+    const void *a,
+    size_t a_byte_count,
+    const void *b,
+    size_t b_byte_count)
+{
+  if (a_byte_count != b_byte_count)
+  {
     return false;
   }
 
   const unsigned char *ap = a;
   const unsigned char *bp = b;
 
-  while (a_byte_count--) {
-    if (*ap++ != *bp++) {
+  while (a_byte_count--)
+  {
+    if (*ap++ != *bp++)
+    {
       return false;
     }
     // if (*ap++ != *bp++) {
     //   return false;
     // }
-  } 
+  }
 
   // for (size_t i = 0; i < a_byte_count; i++) {
   //   if (ap[i] != bp[i]) {
   //     return false;
-  //   }    
-  // } 
+  //   }
+  // }
 
   return true;
 }
@@ -288,7 +291,7 @@ int main(void)
   /////////// Pointers II: Arithmetic ///////
 
   // const int intArray[4] = {1, 2, 3, 4};
-  const char helloWorld[] = "Hello world";
+  // const char helloWorld[] = "Hello world";
   // const int size = sizeof(charArray) / sizeof(char);
 
   // // for (int i = 0; i < size; i++) {
@@ -315,13 +318,72 @@ int main(void)
   // const bool isEqual = genericEquals(helloWorld, sizeof helloWorld, copy, sizeof copy);
   // printf("IsSameValue: %s\n", toBoolString(isEqual));
 
-  const int intArray[] = {1, 2, 3, 4}; 
-  int copy[sizeof intArray / sizeof(intArray[0])];
-  genericCopy(copy, intArray, sizeof intArray);
+  // const int intArray[] = {1, 2, 3, 4};
+  // int copy[sizeof intArray / sizeof(intArray[0])];
+  // genericCopy(copy, intArray, sizeof intArray);
 
-  printf("IsSameMemoryAddress: %s\n", toBoolString(&copy[0] == &intArray[0]));
-  const bool isEqual = genericByteEquals(intArray, sizeof intArray, copy, sizeof copy);
-  printf("IsSameValue: %s\n", toBoolString(isEqual));
+  // printf("IsSameMemoryAddress: %s\n", toBoolString(&copy[0] == &intArray[0]));
+  // const bool isEqual = genericByteEquals(intArray, sizeof intArray, copy, sizeof copy);
+  // printf("IsSameValue: %s\n", toBoolString(isEqual));
+
+  //////////////////////////////// Manual Memory Allocation /////////////
+
+  // const int arraySize = 10;
+  // int *memory = malloc(sizeof(int) * arraySize);
+  // if (memory == NULL)
+  // {
+  //   return 1;
+  // }
+  // memset(memory, 0, sizeof(int) * arraySize);
+  // // for (int i = 0; i < arraySize; i++)
+  // // {
+  // //   printf("%i\n", memory[i]);
+  // // }
+  // free(memory);
+
+  // int *arrayMemory = calloc(arraySize, sizeof(int));
+  // //   for (int i = 0; i < arraySize; i++)
+  // // {
+  // //   printf("%i\n", arrayMemory[i]);
+  // // }
+  // free(arrayMemory);
+
+  // size_t memSize = sizeof(int) * arraySize;
+  // int *pIntArray = calloc(arraySize, sizeof(int));
+  // if (pIntArray == NULL)
+  // {
+  //   return 1;
+  // }
+  // for (int i = 0; i < arraySize; i++)
+  // {
+  //   pIntArray[i] = i + 1;
+  // }
+
+  // int *pNewIncrease = realloc(pIntArray, memSize * 2);
+  // if (pNewIncrease == NULL)
+  // {
+  //   free(pIntArray);
+  //   return 1;
+  // }
+  // pIntArray = pNewIncrease;
+
+  // int *pNewReduction = realloc(pIntArray, memSize / 2);
+  // if (pNewReduction == NULL)
+  // {
+  //   free(pIntArray);
+  //   return 1;
+  // }
+  // pIntArray = pNewReduction;
+
+  // for (int i = 0; i < arraySize; i++)
+  // {
+  //   printf("%i\n", pIntArray[i]);
+  // }
+
+  // free(pIntArray);
+
+  // char *alterNativeMalloc = realloc(NULL, sizeof(char) * 100);
+  // free(alterNativeMalloc);
 
   return EXIT_SUCCESS;
 }
