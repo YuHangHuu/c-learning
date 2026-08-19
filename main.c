@@ -43,7 +43,7 @@ int intFilter(
     const int *original,
     int *replace,
     const int length,
-    const bool (*predicate)(int a))
+    bool (*predicate)(int a))
 {
   int replaceIndex = 0;
   for (int i = 0; i < length; i++)
@@ -68,7 +68,7 @@ bool isEven(int number)
 void printFile(FILE *file)
 {
   int character;
-  while (character = fgetc(file) != EOF)
+  while ((character = fgetc(file)) != EOF)
   {
     printf("%c", character);
   }
@@ -108,13 +108,13 @@ void reverseString(
     char *replacement,
     size_t buffer_size)
 {
-  const int size = stringLength(original);
+  const size_t size = stringLength(original);
   if (buffer_size > (size + 1))
   {
     return;
   }
 
-  for (int i = 0; i < size; i++)
+  for (size_t i = 0; i < size; i++)
   {
     const int replacementIndex = size - 1 - i;
     replacement[i] = original[replacementIndex];
@@ -127,13 +127,13 @@ void copyString(
     char *copy,
     size_t buffer_size)
 {
-  const int size = stringLength(original) + 1;
+  const size_t size = stringLength(original) + 1;
   if (buffer_size > (size + 1))
   {
     return;
   }
 
-  for (int i = 0; i < size; i++)
+  for (size_t i = 0; i < size; i++)
   {
     copy[i] = original[i];
   }
