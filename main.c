@@ -210,6 +210,37 @@ char *toBoolString(int value)
   return value == 0 ? "false" : "true";
 }
 
+char *concat(const char *a, const char *b)
+{
+  const size_t aLength = strlen(a);
+  const size_t bLength = strlen(b);
+
+  const size_t totalSize = aLength + bLength;
+
+  char *result = malloc(aLength + bLength + 1);
+
+  if (result != NULL)
+  {
+    return NULL;
+  }
+
+  memcpy(result, a, aLength);
+  memcpy(result + aLength, b, bLength);
+
+  // for (size_t i = 0; i < aLength; i++) {
+  //   result[i] = a[i];
+  // }
+
+  // for (size_t i = 0; i < bLength; i++) {
+  //   const size_t resultIndex = i + aLength;
+  //   result[resultIndex] = b[i];
+  // }
+
+  result[totalSize] = '\0';
+
+  return result;
+}
+
 int main(void)
 {
   // STRING STUFF
@@ -384,6 +415,10 @@ int main(void)
 
   // char *alterNativeMalloc = realloc(NULL, sizeof(char) * 100);
   // free(alterNativeMalloc);
+
+  const char *concattedString = concat("Hello", " world");
+
+  printf("Result: %s\nLength: %zu", concattedString, strlen(concattedString));
 
   return EXIT_SUCCESS;
 }
